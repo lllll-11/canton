@@ -244,7 +244,7 @@
             <i data-lucide="map"></i>
             <span>Mapa</span>
         </a>
-        <a href="tel:9711320238" class="nav-item">
+        <a href="tel:9852114298" class="nav-item">
             <i data-lucide="phone"></i>
             <span>Llamar</span>
         </a>
@@ -305,7 +305,7 @@
                 <h3 style="color: var(--gold); margin-top: 0;">Promo de los Martes</h3>
                 <span style="font-size: 3rem; color: var(--gold); font-weight: bold; display: block;">$100</span>
                 <p style="color: white; text-transform: uppercase; font-size: 0.8rem;">Combinación Especial</p>
-                <a href="https://wa.me/529711320238" class="btn-submit" style="display: block; text-decoration: none; margin-top: 20px;">Pedir Ahora</a>
+                <a href="https://wa.me/529852114298" class="btn-submit" style="display: block; text-decoration: none; margin-top: 20px;">Pedir Ahora</a>
             </div>
         </div>
     </section>
@@ -329,13 +329,15 @@
             <form class="reservation-form" style="margin-top: 25px;" id="reservationForm">
                 <h3 style="font-size: 1rem; margin-bottom: 15px;">Reserva tu mesa</h3>
                 <input type="text" id="name" placeholder="Nombre completo" required>
-                <input type="tel" id="phone" placeholder="WhatsApp" required>
+                <input type="number" id="guests" placeholder="Número de personas" min="1" max="20" required>
+                <input type="date" id="date" required>
+                <input type="time" id="time" required>
                 <button type="submit" class="btn-submit">Enviar WhatsApp</button>
             </form>
         </div>
     </section>
 
-    <a href="https://wa.me/529711320238" class="whatsapp-float">
+    <a href="https://wa.me/529852114298" class="whatsapp-float">
         <i data-lucide="message-circle" style="color: white; width: 30px; height: 30px;"></i>
     </a>
 
@@ -362,9 +364,11 @@
         document.getElementById('reservationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const message = `Hola! Soy ${name}. Me gustaría hacer una reserva. Mi WhatsApp es ${phone}.`;
-            const whatsappUrl = `https://wa.me/529711320238?text=${encodeURIComponent(message)}`;
+            const guests = document.getElementById('guests').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const message = `Hola! Soy ${name}. Me gustaría reservar una mesa para ${guests} personas el ${date} a las ${time}.`;
+            const whatsappUrl = `https://wa.me/529852114298?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
         });
     </script>
