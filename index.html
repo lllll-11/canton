@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Restaurant Cantón | Gastronomía China & Sushi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        :root {
+            --gold: #c5a059;
+            --dark: #121212;
+            --light-grey: #f4f4f4;
+            --whatsapp: #25d366;
+            --nav-height: 85px; 
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark);
+            color: white;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        header {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            margin: 0;
+            color: var(--gold);
+            letter-spacing: 5px;
+        }
+
+        /* NAVEGACIÓN MÓVIL (ICONOS CARGADOS) */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(18, 18, 18, 0.98);
+            backdrop-filter: blur(15px);
+            border-top: 2px solid var(--gold);
+            z-index: 9999;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        .nav-item {
+            color: #888;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .nav-item i { width: 26px; height: 26px; margin-bottom: 4px; }
+        .nav-item span { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+        .nav-item.active { color: var(--gold); }
+
+        /* MENU TABS (SCROLL CORREGIDO) */
+        .menu-tabs-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+            padding: 10px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .menu-tabs-container::-webkit-scrollbar { display: none; }
+
+        .menu-tabs {
+            display: flex;
+            gap: 12px;
+            padding: 0 20px; /* Margen para que la primera palabra no se corte */
+            min-width: max-content;
+        }
+
+        .tab-btn {
+            background: rgba(197, 160, 89, 0.05);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 12px 20px;
+            border-radius: 50px;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tab-btn.active { background: var(--gold); color: var(--dark); }
+
+        /* GRID DE MENÚ */
+        section { padding: 40px 20px; max-width: 1100px; margin: 0 auto; }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(197,160,89,0.15);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .card h4 { margin: 0; font-size: 0.85rem; color: var(--gold); font-weight: 500; }
+
+        /* MAPA Y CONTACTO */
+        .map-container {
+            width: 100%;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .reservation-box {
+            background: white;
+            color: var(--dark);
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .reservation-form input, .reservation-form select {
+            width: 100%;
+            margin-bottom: 12px;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--dark);
+            color: var(--gold);
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 768px) {
+            body { padding-bottom: var(--nav-height); }
+            .desktop-nav { display: none; }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-nav { display: none; }
+            .desktop-nav {
+                background: rgba(18,18,18,0.95);
+                padding: 20px;
+                text-align: center;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+            .desktop-nav a {
+                color: white;
+                margin: 0 20px;
+                text-decoration: none;
+                text-transform: uppercase;
+                font-size: 0.9rem;
+            }
+            .menu-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: calc(var(--nav-height) + 20px);
+            right: 20px;
+            background: var(--whatsapp);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 900;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="desktop-nav">
+        <a href="#inicio">Inicio</a>
+        <a href="#menu">Menú</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <nav class="mobile-nav">
+        <a href="#inicio" class="nav-item active">
+            <i data-lucide="home"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="#menu" class="nav-item">
+            <i data-lucide="menu"></i>
+            <span>Menú</span>
+        </a>
+        <a href="#contacto" class="nav-item">
+            <i data-lucide="map"></i>
+            <span>Mapa</span>
+        </a>
+        <a href="tel:9711320238" class="nav-item">
+            <i data-lucide="phone"></i>
+            <span>Llamar</span>
+        </a>
+    </nav>
+
+    <header id="inicio">
+        <h1>CANTÓN</h1>
+        <p>CHINA & SUSHI GOURMET</p>
+    </header>
+
+    <section id="menu">
+        <h2 style="color: var(--gold); text-align: center; font-family: 'Playfair Display';">Menú</h2>
+        
+        <div class="menu-tabs-container">
+            <div class="menu-tabs">
+                <button class="tab-btn active" onclick="openMenu(event, 'entradas')">Entradas y Sopas</button>
+                <button class="tab-btn" onclick="openMenu(event, 'fuertes')">Platos Fuertes</button>
+                <button class="tab-btn" onclick="openMenu(event, 'sushi')">Sushi Especial</button>
+                <button class="tab-btn" onclick="openMenu(event, 'promos')">Promociones</button>
+            </div>
+        </div>
+
+        <div id="entradas" class="menu-container">
+            <div class="menu-grid">
+                <div class="card"><h4>Rollos Canton</h4></div>
+                <div class="card"><h4>Pechugones</h4></div>
+                <div class="card"><h4>Wan Ton Frito</h4></div>
+                <div class="card"><h4>Tai Shiu</h4></div>
+                <div class="card"><h4>Sopa Cantón</h4></div>
+                <div class="card"><h4>Sopa Wan Ton</h4></div>
+            </div>
+        </div>
+
+        <div id="fuertes" class="menu-container" style="display: none;">
+            <div class="menu-grid">
+                <div class="card"><h4>Res Cantonesa</h4></div>
+                <div class="card"><h4>Pollo Almendrado</h4></div>
+                <div class="card"><h4>Camarón al Coco</h4></div>
+                <div class="card"><h4>Chow Fan Especial</h4></div>
+                <div class="card"><h4>Pescado Hawai</h4></div>
+                <div class="card"><h4>Chop Suey Mixto</h4></div>
+            </div>
+        </div>
+
+        <div id="sushi" class="menu-container" style="display: none;">
+            <div class="menu-grid">
+                <div class="card"><h4>California Roll</h4></div>
+                <div class="card"><h4>Philadelphia Roll</h4></div>
+                <div class="card"><h4>Kamisake Especial</h4></div>
+                <div class="card"><h4>M-Jikanito</h4></div>
+                <div class="card"><h4>Roll Vegetariano</h4></div>
+                <div class="card"><h4>Tempura Roll</h4></div>
+            </div>
+        </div>
+
+        <div id="promos" class="menu-container" style="display: none;">
+            <div style="background: linear-gradient(135deg, #1a1a1a, #2a2a2a); padding: 30px; border-radius: 15px; border: 2px solid var(--gold); text-align: center;">
+                <h3 style="color: var(--gold); margin-top: 0;">Promo de los Martes</h3>
+                <span style="font-size: 3rem; color: var(--gold); font-weight: bold; display: block;">$100</span>
+                <p style="color: white; text-transform: uppercase; font-size: 0.8rem;">Combinación Especial</p>
+                <a href="https://wa.me/529711320238" class="btn-submit" style="display: block; text-decoration: none; margin-top: 20px;">Pedir Ahora</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="reservation-box">
+            <h2 style="color: var(--dark); margin-top: 0; font-size: 1.5rem;">Visítanos</h2>
+            <p style="color: #666; font-size: 0.9rem;">Tampico 8, San Francisco, Salina Cruz, Oaxaca.</p>
+            
+            <div class="map-container">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0" 
+                    style="border:0" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724!2d-95.195507!3d16.1795278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85bfe7936220b709:0x6be2adbb62fe2e63!2sRestaurant+Cant%C3%B3n!5e0!3m2!1ses!2smx!4v1700000000!5m2!1ses!2smx" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <form class="reservation-form" style="margin-top: 25px;" id="reservationForm">
+                <h3 style="font-size: 1rem; margin-bottom: 15px;">Reserva tu mesa</h3>
+                <input type="text" id="name" placeholder="Nombre completo" required>
+                <input type="tel" id="phone" placeholder="WhatsApp" required>
+                <button type="submit" class="btn-submit">Enviar WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <a href="https://wa.me/529711320238" class="whatsapp-float">
+        <i data-lucide="message-circle" style="color: white; width: 30px; height: 30px;"></i>
+    </a>
+
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // Control de Menú
+        function openMenu(evt, menuName) {
+            const containers = document.querySelectorAll('.menu-container');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            containers.forEach(c => c.style.display = "none");
+            buttons.forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(menuName).style.display = "block";
+            evt.currentTarget.classList.add('active');
+            
+            // Scroll automático lateral para centrar el botón pulsado
+            evt.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+
+        // Manejo del formulario de reserva
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const message = `Hola! Soy ${name}. Me gustaría hacer una reserva. Mi WhatsApp es ${phone}.`;
+            const whatsappUrl = `https://wa.me/529711320238?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
+</body>
+</html>
